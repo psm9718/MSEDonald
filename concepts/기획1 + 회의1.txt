@@ -1,0 +1,93 @@
+극초반 기획
+
+2인 멀티플레이어 -> 개발이 쉬움
+
+클래스를 최대한 많이 사용 -> 개발이 쉬움
+
+서버와 주고 받는 내용은 최대한 간단한 string, int, float 등으로 (parse 편하게) -> 개발이 쉬움
+예시: 캐릭터의 움직임을 클라이언트1에서 모두 계산하고 xy 좌표만 전송해 클라이언트2에서 속도, 애니메이션 예측해서 계산
+
+호스트와 게스트를 연결하고, 게임 시작한다는 신호도 필요
+
+
+
+
+
+# 컨셉 Ideas
+
+## 버거 플레이스 직원과 매니저의 대결
+## battle between burger crew vs manager
+
+장르: 캐주얼 게임, 파티 게임, 멀티플레이어, 요리, 시뮬레이션, (코옵)
+Casual Game, Party Game, Multiplayer, Cooking, Simulation, (Coop)
+
+
+Manager wants many customers
+
+Manager can fire crew if he's doing illegal things
+
+Has to do chores crew does not do
+
+
+Crew wants less customers
+
+Can do weird things to repel customers
+
+But also have to finish his jobs
+
+
+
+
+# 회의 내용
+
+## 개발 방향
+
+스프링 개발 - 유니티 메인 하나랑 신호 주고 받게 개발
+
+유니티 개발 - 가상 서버 흉내 내는 옵젝트 하나를 사용하도록 개발
+
+
+
+## 레벨 디자인
+
+햄버거 대 3칸 재고 3개, 한쪽엔 만들고 한쪽엔 쌓이고 
+
+콜라는 만드는 곳은 2칸 각각 만들고 쌓임 1개씩
+
+오브젝티브에 바 대신 타이머2
+
+
+날아가는(증발) 시간 30초 (통일)
+
+만드는 시간 3초 (통일)
+
+
+세트 (햄버거, 햄+콜+감, 햄+콜, 햄+감 랜덤)
+
+
+
+
+## 시스템 디자인
+
+### 조작
+
+움직임 조작 wasd -> 방향키
+
+줍기/인터랙션 J -> 컨트롤
+
+던지기 K -> 컨트롤 (인터렉션이랑 통합)
+
+
+### 시스템 방향성 설계 (유니티)
+
+P2 클라이언트에서는 P2 캐릭터만 캐릭터 바디, 나머진 리지드 바디
+
+
+### 데이터 구조 설계 (서버)
+
+1초 20번 통신 기준
+
+로그인 할 떄는 C123 C124 누가 호스트인지
+
+
+
