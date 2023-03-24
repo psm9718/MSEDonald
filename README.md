@@ -1,2 +1,2 @@
-# MSE_Project
+# MSEDonald
 Media SW Engineering Project
