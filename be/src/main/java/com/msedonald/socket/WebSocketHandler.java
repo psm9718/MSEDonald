@@ -1,7 +1,6 @@
 package com.msedonald.socket;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.msedonald.socket.data.GameRoom;
 import com.msedonald.socket.data.MessageDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -43,8 +42,8 @@ public class WebSocketHandler extends TextWebSocketHandler {
         log.info("session : {} , user : {} ({})",
                 session.getId(), messageDTO.getUserId(), messageDTO.getTimestamp());
 
-        GameRoom room = socketService.findRoomById(messageDTO.getRoomId());
-        log.info("room {}", room.toString());
+
+        socketService.send(session, messageDTO);
 
     }
 
