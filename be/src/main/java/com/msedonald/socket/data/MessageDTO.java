@@ -6,7 +6,7 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 
 @Getter
-public record MessageDTO(LocalDateTime timestamp, String userId, String roomId, String data) {
+public record MessageDTO(LocalDateTime timestamp, String userId, String data) {
 
     @Builder
     public MessageDTO {
