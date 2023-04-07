@@ -10,26 +10,31 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import java.time.LocalDateTime;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class WebSocketHandler extends TextWebSocketHandler {
 
-    private final SocketService socketService;
     private final ObjectMapper objectMapper;
+    private final Map<String, WebSocketSession> sessions = new ConcurrentHashMap<>();
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         String sessionId = session.getId();
-        socketService.createSession(sessionId, session);
+        sessions.put(sessionId, session);
+
 
         MessageDTO messageDTO = MessageDTO.builder()
-                .userId(sessionId)
+                .sender(sessionId)
+                .timestamp(LocalDateTime.now())
                 .data("Welcome!")
                 .build();
-
-//        session.sendMessage(Utils.get);
-
+        WebSocketSession webSocketSession = sessions.get(sessionId);
+        webSocketSession.sendMessage(new TextMessage(objectMapper.writeValueAsString(messageDTO)));
     }
 
     @Override
@@ -40,20 +45,18 @@ public class WebSocketHandler extends TextWebSocketHandler {
         MessageDTO messageDTO = objectMapper.readValue(payload, MessageDTO.class);
 
         log.info("session : {} , user : {} ({})",
-                session.getId(), messageDTO.getUserId(), messageDTO.getTimestamp());
+                session.getId(), messageDTO.getSender(), messageDTO.getTimestamp());
 
-
-        socketService.send(session, messageDTO);
+        WebSocketSession webSocketSession = sessions.get(session.getId());
+        webSocketSession.sendMessage(new TextMessage(objectMapper.writeValueAsString(messageDTO)));
 
     }
 
     @Override
     public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
-        super.handleTransportError(session, exception);
     }
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-        super.afterConnectionClosed(session, status);
     }
 }
