@@ -3,8 +3,10 @@ package com.msedonald.socket.data;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
+
 @Getter
-public record MessageDTO(String type, String sender, String receiver, String data) {
+public record MessageDTO(LocalDateTime timestamp, String userId, String roomId, String data) {
 
     @Builder
     public MessageDTO {
