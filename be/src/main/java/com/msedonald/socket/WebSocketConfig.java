@@ -1,7 +1,6 @@
 package com.msedonald.socket;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
@@ -20,10 +19,5 @@ public class WebSocketConfig implements WebSocketConfigurer {
         // endpoint 설정 : /api/socket
         // 이를 통해서 ws://localhost:8080/api/socket 으로 요청이 들어오면 websocket 통신을 진행한다.
         registry.addHandler(webSocketHandler, "/api/socket").setAllowedOrigins("*");
-    }
-
-    @Bean
-    public WebSocketHandler signalingSocketHandler() {
-        return new WebSocketHandler();
     }
 }
