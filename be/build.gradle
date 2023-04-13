@@ -13,7 +13,6 @@ configurations {
     compileOnly {
         extendsFrom annotationProcessor
     }
-    asciidoctorExt
 }
 
 repositories {
@@ -23,13 +22,13 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
 
     //web socket
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
 
-    //spring rest docs
-    asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor:{project-version}'
-    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc:{project-version}'
+    // swagger dependency (http://localhost:8080/swagger-ui/index.html)
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
 
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -40,18 +39,4 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
-}
-
-ext {
-    snippetsDir = file('build/generated-snippets')
-}
-
-test {
-    outputs.dir snippetsDir
-}
-
-asciidoctor {
-    inputs.dir snippetsDir
-    configurations 'asciidoctorExt'
-    dependsOn test
 }
