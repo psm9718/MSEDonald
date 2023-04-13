@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ScoreController {
 
-    @PostMapping("/scores/{userId}")
+    @PostMapping("/api/scores/{userId}")
     public void score(@PathVariable Long userId) {
 
     }
 
-    @GetMapping("/scores")
+    @GetMapping("/api/scores")
     public void getResults() {
 
     }

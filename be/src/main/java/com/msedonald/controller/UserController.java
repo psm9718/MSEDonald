@@ -8,17 +8,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
 
-    @PostMapping("/users")
+    @PostMapping("/api/users")
     public void signup() {
 
     }
 
-    @GetMapping("/users")
+    @GetMapping("/api/users")
     public void login() {
 
     }
 
-    @DeleteMapping("/users")
+    @DeleteMapping("/api/users")
     public void logout() {
 
     }
