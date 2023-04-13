@@ -45,7 +45,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
         MessageDTO messageDTO = objectMapper.readValue(payload, MessageDTO.class);
 
         log.info("session : {} , user : {} ({})",
-                session.getId(), messageDTO.getSender(), messageDTO.getTimestamp());
+                session.getId(), messageDTO.sender(), messageDTO.timestamp());
 
         WebSocketSession webSocketSession = sessions.get(session.getId());
         webSocketSession.sendMessage(new TextMessage(objectMapper.writeValueAsString(messageDTO)));
