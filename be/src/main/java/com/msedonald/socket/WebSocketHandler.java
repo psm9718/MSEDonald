@@ -35,6 +35,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
                 .build();
 
         WebSocketSession webSocketSession = sessions.get(sessionId);
+        log.info("> send welcome message to host {}", webSocketSession.getId());
         webSocketSession.sendMessage(new TextMessage(objectMapper.writeValueAsString(messageDTO)));
     }
 
