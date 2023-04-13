@@ -26,13 +26,14 @@ public class WebSocketHandler extends TextWebSocketHandler {
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         String sessionId = session.getId();
         sessions.put(sessionId, session);
-
+        log.info("> session start : {}", sessionId);
 
         MessageDTO messageDTO = MessageDTO.builder()
                 .sender(sessionId)
                 .timestamp(LocalDateTime.now())
                 .data("Welcome!")
                 .build();
+
         WebSocketSession webSocketSession = sessions.get(sessionId);
         webSocketSession.sendMessage(new TextMessage(objectMapper.writeValueAsString(messageDTO)));
     }
