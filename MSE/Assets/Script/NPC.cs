@@ -28,6 +28,7 @@ public class NPC : MonoBehaviour
 
     void Awake()
     {
+        this.gameObject.SetActive(false);
         agent = GetComponent<NavMeshAgent>(); // 네비게이션 초기화
     }
 

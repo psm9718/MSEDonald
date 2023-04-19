@@ -63,6 +63,12 @@
     <Compile Include="Assets\Script\NPC.cs" />
     <Compile Include="Assets\Script\Object.cs" />
     <Compile Include="Assets\Script\PlayerInput.cs" />
+    <Compile Include="Assets\Script\Gamemanager.cs" />
+    <Compile Include="Assets\Script\Food\Food_Out.cs" />
+    <Compile Include="Assets\Script\Player\Player.cs" />
+    <Compile Include="Assets\Script\Food\Sodamacine.cs" />
+    <Compile Include="Assets\Script\Food\Soda.cs" />
+    <Compile Include="Assets\Script\Player\TargettingRaycast.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

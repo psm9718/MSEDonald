@@ -16,19 +16,11 @@ public class PlayerRaycast : MonoBehaviour
             {
                 hit.collider.GetComponent<Renderer>().material = mat[0];
             }
-            /*
-            else if(hit.collider.tag == "Object"
-                && hit.collider.GetComponent<Renderer>().material.name == "Targetting")
-            {
-                if (Input.GetKeyDown(KeyCode.LeftControl))
-                {
-                    hit.collider.GetComponent<Renderer>().material = mat[1];
-                }
-            }
-            */
             Debug.DrawRay(transform.position, transform.forward * hit.distance, Color.red);
         }
+
         
+
         //Debug.DrawRay(transform.position, transform.forward * hit.distance, Color.red);
     }
 }
