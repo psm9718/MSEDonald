@@ -49,9 +49,12 @@ public class WebSocketHandler extends TextWebSocketHandler {
         log.info("session : {} , user : {} ({})",
                 session.getId(), messageDTO.sender(), messageDTO.timestamp());
 
-        WebSocketSession webSocketSession = sessions.get(session.getId());
-        webSocketSession.sendMessage(new TextMessage(objectMapper.writeValueAsString(messageDTO)));
+        WebSocketSession receiver = sessions.get(session.getId());
 
+        if (receiver != null && receiver.isOpen()) {
+            receiver.sendMessage(new TextMessage(objectMapper.writeValueAsString(messageDTO)));
+            log.info("> message sent to {}", receiver.getId());
+        }
     }
 
     @Override
