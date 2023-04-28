@@ -10,6 +10,7 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -34,9 +35,17 @@ public class WebSocketHandler extends TextWebSocketHandler {
                 .data("Welcome!")
                 .build();
 
-        WebSocketSession webSocketSession = sessions.get(sessionId);
-        log.info("> send welcome message to host {}", webSocketSession.getId());
-        webSocketSession.sendMessage(new TextMessage(objectMapper.writeValueAsString(messageDTO)));
+        sessions.values().forEach(s -> {
+                    try {
+                        if (!s.getId().equals(sessionId)) {
+                            s.sendMessage(new TextMessage(objectMapper.writeValueAsString(messageDTO)));
+                            log.info("> send welcome message to user {} [ {} ]", s.getId(), s.getUri());
+                        }
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+        );
     }
 
     @Override
