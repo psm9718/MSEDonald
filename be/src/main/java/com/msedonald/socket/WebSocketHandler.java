@@ -31,6 +31,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 
         MessageDTO messageDTO = MessageDTO.builder()
                 .sender(sessionId)
+                .receiver("broadcast")
                 .timestamp(LocalDateTime.now())
                 .data("Welcome!")
                 .build();
@@ -80,5 +81,24 @@ public class WebSocketHandler extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+        String sessionId = session.getId();
+        sessions.remove(sessionId);
+
+        MessageDTO messageDTO = MessageDTO.builder()
+                .sender(sessionId)
+                .receiver("broadcast")
+                .timestamp(LocalDateTime.now())
+                .data("Good bye!")
+                .build();
+
+        sessions.values().forEach(s -> {
+            try {
+                s.sendMessage(new TextMessage(objectMapper.writeValueAsString(messageDTO)));
+                log.info(">> message sent to user {} [ {} ]", s.getId(), s.getUri());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        log.info("session {} successfully removed", sessionId);
     }
 }
