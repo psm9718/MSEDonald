@@ -27,7 +27,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         String sessionId = session.getId();
         sessions.put(sessionId, session);
-        log.info("> session start : {}", sessionId);
+        log.info("session start : {}", sessionId);
 
         MessageDTO messageDTO = MessageDTO.builder()
                 .sender(sessionId)
@@ -54,16 +54,24 @@ public class WebSocketHandler extends TextWebSocketHandler {
         log.info("> payload {}", payload);
 
         MessageDTO messageDTO = objectMapper.readValue(payload, MessageDTO.class);
-
-        log.info("session : {} , user : {} ({})",
+        log.info("> session : {} , user : {} ({})",
                 session.getId(), messageDTO.sender(), messageDTO.timestamp());
 
-        WebSocketSession receiver = sessions.get(session.getId());
+        sessions.values().forEach(s -> {
+                    try {
+                        s.sendMessage(new TextMessage(objectMapper.writeValueAsString(messageDTO)));
+                        log.info(">> message sent to user {} [ {} ]", s.getId(), s.getUri());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+        );
 
-        if (receiver != null && receiver.isOpen()) {
-            receiver.sendMessage(new TextMessage(objectMapper.writeValueAsString(messageDTO)));
-            log.info("> message sent to {}", receiver.getId());
-        }
+//        WebSocketSession receiver = sessions.get(session.getId());
+//        if (receiver != null && receiver.isOpen()) {
+//            receiver.sendMessage(new TextMessage(objectMapper.writeValueAsString(messageDTO)));
+//            log.info("> message sent to {}", receiver.getId());
+//        }
     }
 
     @Override
