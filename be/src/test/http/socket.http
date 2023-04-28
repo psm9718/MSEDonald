@@ -1,5 +1,5 @@
 ### socket-connection
-GET http://localhost:8080/api/socket
+GET {{address}}/api/socket
 Content-Type: application/json
 Upgrade: websocket
 Connection: Upgrade
