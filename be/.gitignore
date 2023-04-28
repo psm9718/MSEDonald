@@ -18,6 +18,7 @@ bin/
 !**/src/test/**/bin/
 
 ### IntelliJ IDEA ###
+http-client.private.env.json
 .idea
 *.yml
 *.iws

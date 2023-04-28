@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class GameController {
 
-    @GetMapping("/api/games")
-    public void startGame() {
-
+    @GetMapping("/api/test")
+    public String startGame() {
+        return "test api";
     }
 }
