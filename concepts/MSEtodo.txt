@@ -1,0 +1,18 @@
+1. FriedSpawn 위치 조정 (x: -0.2, y: -0.45, )
+
+2. DirtySpawn 위치 조정 ( , y: -4.4, )
+
+3. 트레이, 트레이 음식 프리팹 적용 (Fries 2 등)
+스케일 1
+위치 통일 (x: _.5, y: 0, z: _.0), 트레이만 y:4.8
+
+4. 캐릭터가 들고 있는 물체 Rotation, Scale 조정
+
+5. UI 이미지 교체
+원래 이미지 폴더 안 (Assets/Image)
+
+6. 빗자루 Mesh 적용
+Mesh (Tiles/Broom.fbx)
+Material (Tiles/Material/Broom.mat, BroomDark.mat)
+
+7. 캐릭터 이미지
