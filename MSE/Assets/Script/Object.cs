@@ -4,21 +4,22 @@ using UnityEngine;
 
 public class Object : MonoBehaviour
 {
-    [SerializeField]
-    private Material mat;
+    private Color temp_color;
+    private Color cur_color;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        
+        temp_color = this.GetComponent<MeshRenderer>().materials[1].GetColor("_Color");
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(this.GetComponent<Renderer>().material.name == "Targetting (Instance)")
+        cur_color = this.GetComponent<MeshRenderer>().materials[1].GetColor("_Color");
+
+        //색이 변경되면 원래대로 전환
+        if (cur_color.a != temp_color.a)
         {
-            this.GetComponent<Renderer>().material = mat;
+            this.GetComponent<MeshRenderer>().materials[1].SetColor("_Color", temp_color);
         }
     }
 }

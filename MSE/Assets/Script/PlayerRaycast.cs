@@ -5,30 +5,18 @@ using UnityEngine;
 public class PlayerRaycast : MonoBehaviour
 {
     RaycastHit hit;
-    public Material[] mat = new Material[2];
 
-    // Update is called once per frame
     void Update()
     {
-        if(Physics.Raycast(transform.position - new Vector3(0f, 0.6f, 0f), transform.forward, out hit, 1.5f))
+        if(Physics.Raycast(this.transform.position, this.transform.forward, out hit, 2f))
         {
             if (hit.collider.tag == "Object")
             {
-                hit.collider.GetComponent<Renderer>().material = mat[0];
+                //pick up 색상 변경
+                Color target = new(1.0f, 1.0f, 0.9f, 0.8f);
+                hit.collider.GetComponent<MeshRenderer>().materials[1].SetColor("_Color",target);
             }
-            /*
-            else if(hit.collider.tag == "Object"
-                && hit.collider.GetComponent<Renderer>().material.name == "Targetting")
-            {
-                if (Input.GetKeyDown(KeyCode.LeftControl))
-                {
-                    hit.collider.GetComponent<Renderer>().material = mat[1];
-                }
-            }
-            */
             Debug.DrawRay(transform.position, transform.forward * hit.distance, Color.red);
         }
-        
-        //Debug.DrawRay(transform.position, transform.forward * hit.distance, Color.red);
     }
 }

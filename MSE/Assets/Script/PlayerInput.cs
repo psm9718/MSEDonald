@@ -9,16 +9,20 @@ public class PlayerInput : MonoBehaviour
 
     public float move { get; private set; }
     public float rotate { get; private set; }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
+    
     void Update()
     {
-        move = Input.GetAxis(moveAxisName);
-        rotate= Input.GetAxis(rotateAxisName);
+        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow)
+            || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
+        {
+            move = Input.GetAxis(moveAxisName);
+            rotate = Input.GetAxis(rotateAxisName);
+        }
+        else
+        {
+            move = 0;
+            rotate = 0;
+        }
+            
     }
 }
